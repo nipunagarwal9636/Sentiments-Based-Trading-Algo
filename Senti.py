@@ -20,7 +20,7 @@ import tweepy
 
 BEARER_TOKEN = 'AAAAAAAAAAAAAAAAAAAAAJKy1AEAAAAAx1Idx1wuT0kNUDkO6l5CoLnt5hI%3DyusZa0SLrGZci9cxz0GBn5c9HZ0i83GdOhYj3nJxkiuxNGNfW3'
 #BEARER_TOKEN = '1676310337547796480-gSKAiE88bImZjQ3VgHppHX1IxAnwpI'
-TICKER = 'RELIANCE'
+TICKER = 'GOOG'
 SENTIMENT_FILE = 'sentiment_log.csv'
 model_name = "yiyanghkust/finbert-tone"
 
@@ -38,7 +38,7 @@ finbert = pipeline("sentiment-analysis",
 # In[4]:
 
 
-def fetch_tweets(keyword="Reliance", max_tweets=50):
+def fetch_tweets(keyword="Google", max_tweets=50):
     query = f"{keyword} -is:retweet lang:en"
     tweets = client.search_recent_tweets(query=query, max_results=max_tweets)
     return [tweet.text for tweet in tweets.data] if tweets.data else []
@@ -104,7 +104,7 @@ st.title("📈 Sentiment-Based Trading Strategy Dashboard")
 st.write(f"Tracking {TICKER} using Twitter sentiment (FinBERT model)")
 
 if st.button("🔁 Fetch & Log Today's Sentiment"):
-    tweets = fetch_tweets("Reliance")
+    tweets = fetch_tweets("Google")
     if tweets:
         score = get_sentiment_score(tweets)
         log_sentiment(score)
