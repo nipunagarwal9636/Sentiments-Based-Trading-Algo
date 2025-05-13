@@ -9,7 +9,7 @@ import datetime
 import matplotlib.pyplot as plt
 
 # --- Twitter API credentials (replace with your own keys or use secrets in deployment) ---
-bearer_token = st.secrets["TWITTER_BEARER_TOKEN"]
+bearer_token = "AAAAAAAAAAAAAAAAAAAAAJKy1AEAAAAAx1Idx1wuT0kNUDkO6l5CoLnt5hI%3DyusZa0SLrGZci9cxz0GBn5c9HZ0i83GdOhYj3nJxkiuxNGNfW3"
 
 # --- FinBERT Model ---
 @st.cache_resource
