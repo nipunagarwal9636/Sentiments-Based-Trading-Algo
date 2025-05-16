@@ -84,7 +84,7 @@ if st.button("Analyze"):
     df['Cumulative_Market'] = (1 + df['Return']).cumprod()
     df['Cumulative_Strategy'] = (1 + df['Strategy_Return']).cumprod()
     st.write("Columns:", df.columns.tolist())
-    df.columns = ['_'.join(col).strip() if isinstance(col, tuple) else col for col in df.columns]
+    #df.columns = ['_'.join(col).strip() if isinstance(col, tuple) else col for col in df.columns]
     #st.line_chart(df[['Cumulative_Market', 'Cumulative_Strategy']])
     if 'Cumulative_Market' in df.columns and 'Cumulative_Strategy' in df.columns:
         st.line_chart(df[['Cumulative_Market', 'Cumulative_Strategy']])
