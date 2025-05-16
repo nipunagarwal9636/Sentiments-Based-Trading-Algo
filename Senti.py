@@ -119,8 +119,8 @@ if st.button("Analyze"):
 
     # Show plot in Streamlit
         st.pyplot(plt)
-        else:
-            st.warning("🚫 Required columns not found in DataFrame.")
+    else:
+        st.warning("🚫 Required columns not found in DataFrame.")
 
 
 
