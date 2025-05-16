@@ -53,6 +53,9 @@ if st.button("Analyze"):
     # --- Step 3: Stock Data ---
     st.write("📉 Downloading stock data...")
     df = yf.download(stock_symbol, period="3mo")
+    if df.empty:
+        st.error("❌ No stock data found. Please check the symbol.")
+        st.stop()
     if 'Adj Close' not in df.columns:
         if 'Close' in df.columns:
             df['Adj Close'] = df['Close']
