@@ -49,7 +49,7 @@ if st.button("Analyze"):
 
     # --- Step 3: Stock Data ---
     st.write("📉 Downloading stock data...")
-    df = yf.download(stock_symbol, period="6mo")
+    df = yf.download(stock_symbol, period="1mo")
     df['Return'] = df['Adj Close'].pct_change()
     df['Signal'] = 0
     df.loc[df.index[-1], 'Signal'] = 1 if sentiment_score > 0.1 else -1 if sentiment_score < -0.1 else 0
