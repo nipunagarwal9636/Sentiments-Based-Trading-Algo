@@ -9,9 +9,9 @@ import datetime
 
 # --- Reddit API credentials (use secrets in deployment) ---
 reddit = praw.Reddit(
-    client_id=st.secrets["yMjAkr-zxWXFhT87ugfc9w"],
-    client_secret=st.secrets["50lLxGXaCk1h4Nk1rRxupmB02BAP5w"],
-    user_agent=st.secrets["python:sentiment.reddit.app:v1.0 (by u/Nipun27)"]
+    client_id="yMjAkr-zxWXFhT87ugfc9w",
+    client_secret="50lLxGXaCk1h4Nk1rRxupmB02BAP5w",
+    user_agent="python:sentiment.reddit.app:v1.0 (by u/Nipun27)"
 )
 
 # --- FinBERT Model ---
