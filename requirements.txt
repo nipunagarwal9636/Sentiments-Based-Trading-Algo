@@ -5,3 +5,4 @@ torch
 pandas
 matplotlib
 yfinance
+praw
