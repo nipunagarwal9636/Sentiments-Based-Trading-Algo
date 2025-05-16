@@ -86,10 +86,33 @@ if st.button("Analyze"):
     st.write("Columns:", df.columns.tolist())
     #df.columns = ['_'.join(col).strip() if isinstance(col, tuple) else col for col in df.columns]
     #st.line_chart(df[['Cumulative_Market', 'Cumulative_Strategy']])
+    # Step 1: Make sure 'Adj Close' exists
+    if 'Adj Close' not in df.columns:
+        if 'Close' in df.columns:
+            df['Adj Close'] = df['Close']
+        else:
+            st.error("Missing 'Adj Close' and 'Close' columns in stock data.")
+            st.stop()
+
+    # Step 2: Calculate returns and strategy
+    df['Return'] = df['Adj Close'].pct_change()
+    df['Signal'] = 0
+    df.loc[df.index[-1], 'Signal'] = ( 1 if sentiment_score > 0.1 else -1 if sentiment_score < -0.1 else 0)
+    df['Strategy_Return'] = df['Signal'].shift(1) * df['Return']
+
+    # Step 3: Calculate cumulative returns
+    df['Cumulative_Market'] = (1 + df['Return'].fillna(0)).cumprod()
+    df['Cumulative_Strategy'] = (1 + df['Strategy_Return'].fillna(0)).cumprod()
+
+    # Step 4: Debug – print column names to verify
+    st.write("✅ Columns in DataFrame:", df.columns.tolist())
+
+    # Step 5: Check and plot
     if 'Cumulative_Market' in df.columns and 'Cumulative_Strategy' in df.columns:
         st.line_chart(df[['Cumulative_Market', 'Cumulative_Strategy']])
     else:
-        st.warning("🚫 Cumulative return columns not found.")
+        st.warning("🚫 Required columns not found in DataFrame.")
+
 
 
     st.success("✅ Strategy complete! Adjust keywords or symbols to explore further.")
