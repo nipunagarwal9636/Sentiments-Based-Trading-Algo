@@ -1,7 +1,7 @@
 streamlit
 tweepy
-transformers
-torch
+transformers==4.36.2
+torch==2.1.0
 pandas
 matplotlib
 yfinance
