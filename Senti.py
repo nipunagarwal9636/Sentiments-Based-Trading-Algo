@@ -6,6 +6,8 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from transformers import pipeline
 import praw
 import datetime
+import torch
+import torch.nn.functional as F
 
 # --- Reddit API credentials (use secrets in deployment) ---
 reddit = praw.Reddit(
@@ -16,12 +18,22 @@ reddit = praw.Reddit(
 
 # --- FinBERT Model ---
 @st.cache_resource
-def load_model():
-    tokenizer = AutoTokenizer.from_pretrained("yiyanghkust/finbert-tone")
-    model = AutoModelForSequenceClassification.from_pretrained("yiyanghkust/finbert-tone").to("cpu")
-    return pipeline("sentiment-analysis", model=model, tokenizer=tokenizer)
+#def load_model():
+tokenizer = AutoTokenizer.from_pretrained("yiyanghkust/finbert-tone")
+model = AutoModelForSequenceClassification.from_pretrained("yiyanghkust/finbert-tone").to("cpu")
+def get_sentiment(texts):
+    results = []
+    for text in texts:
+        inputs = tokenizer(text[:512], return_tensors="pt", truncation=True)
+        with torch.no_grad():
+            outputs = model(**inputs)
+            scores = F.softmax(outputs.logits, dim=1)[0]
+            label = torch.argmax(scores).item()
+            label_name = ["neutral", "positive", "negative"][label]
+            results.append({"label": label_name, "score": scores[label].item()})
+    return results
 
-sentiment_pipeline = load_model()
+
 
 # --- Streamlit UI ---
 st.title("📈 Reddit-Based Sentiment Trading Strategy")
@@ -41,7 +53,7 @@ if st.button("Analyze"):
 
     # --- Step 2: Sentiment Analysis ---
     st.write("🧠 Analyzing sentiment...")
-    sentiments = sentiment_pipeline(post_texts)
+    sentiments = get_sentiment(post_texts)
     sentiment_df = pd.DataFrame(sentiments)
     sentiment_counts = sentiment_df['label'].value_counts()
     pos = sentiment_counts.get('positive', 0)
