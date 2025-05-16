@@ -39,7 +39,6 @@ def get_sentiment(texts):
 st.title("📈 Reddit-Based Sentiment Trading Strategy")
 st.subheader("Developed by Nipun Agarwal and Garv Joshi")
 st.markdown("---")
-st.markdown("**Developed by: Nipun Agarwal and Garv Joshi**")
 stock_symbol = st.text_input("Enter Stock Symbol (e.g., AAPL):", value="AAPL")
 subreddit_name = st.text_input("Enter Subreddit (e.g., stocks):", value="stocks")
 keyword = st.text_input("Enter Keyword to Filter Posts (e.g., Apple):", value="Apple")
