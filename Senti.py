@@ -36,30 +36,13 @@ def get_sentiment(texts):
 
 
 # --- Streamlit UI ---
-st.set_page_config(page_title="Sentiment-Based Trading App", layout="wide")
-with st.sidebar:
-    st.image("https://upload.wikimedia.org/wikipedia/commons/5/58/Reddit_logo_new.svg", width=150)
-    st.title("📊 Sentiment App")
-    st.markdown("Developed by **Nipun Agarwal and Garv Joshi**")
-    st.markdown("---")
-st.markdown(
-    "<h1 style='text-align: center; color: #1f77b4;'>📈 Sentiment-Based Trading Algorithm</h1>",
-    unsafe_allow_html=True
-)
-
-st.markdown(
-    "<h4 style='text-align: center;'>Using Reddit Sentiment & FinBERT for Smarter Trades</h4>",
-    unsafe_allow_html=True
-)
-
+st.title("📈 Reddit-Based Sentiment Trading Strategy")
+st.subheader("Developed by Nipun Agarwal and Garv Joshi")
 st.markdown("---")
-#st.title("📈 Reddit-Based Sentiment Trading Strategy")
-#st.subheader("Developed by Nipun Agarwal and Garv Joshi")
-#st.markdown("---")
-#st.markdown("**Developed by: Nipun Agarwal and Garv Joshi**")
-#stock_symbol = st.text_input("Enter Stock Symbol (e.g., AAPL):", value="AAPL")
-#subreddit_name = st.text_input("Enter Subreddit (e.g., stocks):", value="stocks")
-#keyword = st.text_input("Enter Keyword to Filter Posts (e.g., Apple):", value="Apple")
+st.markdown("**Developed by: Nipun Agarwal and Garv Joshi**")
+stock_symbol = st.text_input("Enter Stock Symbol (e.g., AAPL):", value="AAPL")
+subreddit_name = st.text_input("Enter Subreddit (e.g., stocks):", value="stocks")
+keyword = st.text_input("Enter Keyword to Filter Posts (e.g., Apple):", value="Apple")
 
 if st.button("Analyze"):
     # --- Step 1: Fetch Reddit Posts ---
