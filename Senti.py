@@ -30,13 +30,13 @@ subreddit_name = st.text_input("Enter Subreddit (e.g., stocks):", value="stocks"
 keyword = st.text_input("Enter Keyword to Filter Posts (e.g., Apple):", value="Apple")
 
 if st.button("Analyze"):
-# --- Step 1: Fetch Reddit Posts ---
-st.write("🧵 Fetching Reddit posts...")
-subreddit = reddit.subreddit(subreddit_name)
-posts = subreddit.search(keyword, sort='new', time_filter='day', limit=50)
-post_texts = [
-    (post.title + " " + (post.selftext or ""))[:512]  # truncate to avoid model input size error
-    for post in posts ]
+    # --- Step 1: Fetch Reddit Posts ---
+    st.write("🧵 Fetching Reddit posts...")
+    subreddit = reddit.subreddit(subreddit_name)
+    posts = subreddit.search(keyword, sort='new', time_filter='day', limit=50)
+    post_texts = [
+        (post.title + " " + (post.selftext or ""))[:512]  # truncate to avoid model input size error
+        for post in posts ]
 
 
     # --- Step 2: Sentiment Analysis ---
