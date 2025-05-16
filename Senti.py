@@ -8,7 +8,6 @@ import praw
 import datetime
 import torch
 import torch.nn.functional as F
-from PIL import Image
 
 # --- Reddit API credentials (use secrets in deployment) ---
 reddit = praw.Reddit(
