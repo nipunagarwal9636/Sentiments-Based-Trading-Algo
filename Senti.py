@@ -109,9 +109,10 @@ if st.button("Analyze"):
 
     # Step 5: Check and plot
     if 'Cumulative_Market' in df.columns and 'Cumulative_Strategy' in df.columns:
-        plt.plot(df[['Cumulative_Market', 'Cumulative_Strategy']])
+        data2=plt.plot(df[['Cumulative_Market', 'Cumulative_Strategy']])
         plt.grid(True)
         plt.show()
+        st.line_chart(data2)
         #plt.plot(x, y, marker='o', linestyle='-', color='blue')
     else:
         st.warning("🚫 Required columns not found in DataFrame.")
