@@ -83,7 +83,6 @@ if st.button("Analyze"):
     st.write("📊 Strategy Performance")
     df['Cumulative_Market'] = (1 + df['Return']).cumprod()
     df['Cumulative_Strategy'] = (1 + df['Strategy_Return']).cumprod()
-    st.write("Columns:", df.columns.tolist())
     #df.columns = ['_'.join(col).strip() if isinstance(col, tuple) else col for col in df.columns]
     #st.line_chart(df[['Cumulative_Market', 'Cumulative_Strategy']])
     # Step 1: Make sure 'Adj Close' exists
@@ -110,6 +109,8 @@ if st.button("Analyze"):
     # Step 5: Check and plot
     if 'Cumulative_Market' in df.columns and 'Cumulative_Strategy' in df.columns:
         data2=plt.plot(df[['Cumulative_Market', 'Cumulative_Strategy']])
+        plt.xlabel("Cumulative Market")
+        plt.ylabel("Cumulative_Strategy")
         plt.grid(True)
         plt.show()
         st.line_chart(data2)
