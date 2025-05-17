@@ -16,9 +16,10 @@ reddit = praw.Reddit(
     user_agent="python:sentiment.reddit.app:v1.0 (by u/Nipun27)"
 )
 
-# --- FinBERT Model ---
-tokenizer = AutoTokenizer.from_pretrained("yiyanghkust/finbert-tone")
-model = AutoModelForSequenceClassification.from_pretrained("yiyanghkust/finbert-tone").to("cpu")
+# --- FinBERT Model 
+model_name = "yiyanghkust/finbert-tone"
+tokenizer = AutoTokenizer.from_pretrained("model_name")
+model = AutoModelForSequenceClassification.from_pretrained("model_name").to("cpu")
 
 
 def get_sentiment(texts):
