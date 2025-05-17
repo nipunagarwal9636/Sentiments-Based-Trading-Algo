@@ -6,4 +6,3 @@ pandas
 matplotlib
 yfinance
 praw
-accelerate
