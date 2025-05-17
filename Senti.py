@@ -18,7 +18,10 @@ reddit = praw.Reddit(
 
 # --- FinBERT Model ---
 tokenizer = AutoTokenizer.from_pretrained("yiyanghkust/finbert-tone")
-model = AutoModelForSequenceClassification.from_pretrained("yiyanghkust/finbert-tone").to("cpu")
+model = AutoModelForSequenceClassification.from_pretrained("yiyanghkust/finbert-tone",
+    torch_dtype="auto",                 # optional
+    low_cpu_mem_usage=False,           # ✅ set this to False to avoid meta tensors
+)
 
 
 def get_sentiment(texts):
