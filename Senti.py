@@ -18,8 +18,8 @@ reddit = praw.Reddit(
 
 # --- FinBERT Model 
 model_name = "yiyanghkust/finbert-tone"
-tokenizer = AutoTokenizer.from_pretrained("model_name")
-model = AutoModelForSequenceClassification.from_pretrained("model_name").to("cpu")
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = AutoModelForSequenceClassification.from_pretrained(model_name).to("cpu")
 
 
 def get_sentiment(texts):
