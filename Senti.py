@@ -60,7 +60,8 @@ if st.button("Analyze"):
     sentiment_df = pd.DataFrame(sentiments)
     sentiment_counts = sentiment_df['label'].value_counts()
     pos = sentiment_counts.get('positive', 0)
-    neg = sentiment_counts.get('negative', 0)
+    #neg = sentiment_counts.get('negative', 0)
+    neg = sentiment_counts['negative'] if 'negative' in sentiment_counts else 0
     total = len(post_texts)
     sentiment_score = (pos - neg) / total if total > 0 else 0
     st.metric("Sentiment Score", round(sentiment_score, 2))
