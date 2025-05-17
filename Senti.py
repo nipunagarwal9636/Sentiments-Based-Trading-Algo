@@ -38,10 +38,6 @@ def get_sentiment(texts):
 
 # --- Streamlit UI ---
 st.title("📈 Reddit-Based Sentiment Trading Strategy")
-# Show sentiment counts
-st.write("🧾 Sentiment Breakdown:")
-st.dataframe(sentiment_df['label'].value_counts().rename_axis('Sentiment').reset_index(name='Counts'))
-
 st.subheader("Developed by Nipun Agarwal and Garv Joshi")
 st.markdown("---")
 stock_symbol = st.text_input("Enter Stock Symbol (e.g., AAPL):", value="AAPL")
