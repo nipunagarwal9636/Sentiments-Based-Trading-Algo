@@ -8,6 +8,7 @@ import praw
 import datetime
 import torch
 import torch.nn.functional as F
+from accelerate import init_empty_weights, load_checkpoint_and_dispatch
 
 # --- Reddit API credentials (use secrets in deployment) ---
 reddit = praw.Reddit(
@@ -17,8 +18,20 @@ reddit = praw.Reddit(
 )
 
 # --- FinBERT Model ---
-tokenizer = AutoTokenizer.from_pretrained("yiyanghkust/finbert-tone")
-model = AutoModelForSequenceClassification.from_pretrained("yiyanghkust/finbert-tone").to("cpu")
+#tokenizer = AutoTokenizer.from_pretrained("yiyanghkust/finbert-tone")
+#model = AutoModelForSequenceClassification.from_pretrained("yiyanghkust/finbert-tone").to("cpu")
+model_name = "yiyanghkust/finbert-tone"
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+
+with init_empty_weights():
+    model = AutoModelForSequenceClassification.from_pretrained(
+        model_name,
+        device_map="auto",
+        low_cpu_mem_usage=True,
+        torch_dtype="auto"
+    )
+model = load_checkpoint_and_dispatch(model, model_name, device_map="auto")
+
 
 def get_sentiment(texts):
     results = []
