@@ -7,7 +7,7 @@ from transformers import pipeline
 import praw
 import datetime
 import torch
-import torch.nn.functional as F
+#import torch.nn.functional as F
 
 # --- Reddit API credentials (use secrets in deployment) ---
 reddit = praw.Reddit(
