@@ -7,7 +7,7 @@ from transformers import pipeline
 import praw
 import datetime
 import torch
-#import torch.nn.functional as F
+import torch.nn.functional as F
 
 # --- Reddit API credentials (use secrets in deployment) ---
 reddit = praw.Reddit(
@@ -16,10 +16,9 @@ reddit = praw.Reddit(
     user_agent="python:sentiment.reddit.app:v1.0 (by u/Nipun27)"
 )
 
-# --- FinBERT Model 
-model_name = "yiyanghkust/finbert-tone"
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-model = AutoModelForSequenceClassification.from_pretrained(model_name).to("cpu")
+# --- FinBERT Model ---
+tokenizer = AutoTokenizer.from_pretrained("yiyanghkust/finbert-tone")
+model = AutoModelForSequenceClassification.from_pretrained("yiyanghkust/finbert-tone").to("cpu")
 
 
 def get_sentiment(texts):
@@ -60,8 +59,7 @@ if st.button("Analyze"):
     sentiment_df = pd.DataFrame(sentiments)
     sentiment_counts = sentiment_df['label'].value_counts()
     pos = sentiment_counts.get('positive', 0)
-    #neg = sentiment_counts.get('negative', 0)
-    neg = sentiment_counts['negative'] if 'negative' in sentiment_counts else 0
+    neg = sentiment_counts.get('negative', 0)
     total = len(post_texts)
     sentiment_score = (pos - neg) / total if total > 0 else 0
     st.metric("Sentiment Score", round(sentiment_score, 2))
